@@ -1,0 +1,17 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+        maven("https://maven.kikugie.dev/snapshots")
+        maven("https://maven.fabricmc.net")
+    }
+}
+
+plugins {
+    id("io.github.bizcub.multiloader") version "0.8+"
+}
+
+multiloader {
+    match("26.2", fb, fg, nf)
+}
