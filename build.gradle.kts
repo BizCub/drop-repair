@@ -6,7 +6,7 @@ multiloader {
     setMREnvironment(mrEnvs.serverOnly)
     setCFEnvironment(cfEnvs.server)
 
-    versionRange(version = "26.2", to = "latest")
+    versionRange(version = "26.3", to = "latest")
 
     addDependency(
         dependency = getSimpleConfigLibDep(),
@@ -18,7 +18,8 @@ multiloader {
             dependency = "net.fabricmc:fabric-loader:${getDep("fabric")}"
         )
         addDependency(
-            dependency = "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}"
+            dependency = "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}",
+            isPublishDepEnabled = true
         )
         addDependency(
             dependency = "com.terraformersmc:modmenu:${getDep("modmenu")}",
