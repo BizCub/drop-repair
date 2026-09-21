@@ -3,10 +3,25 @@ plugins {
 }
 
 multiloader {
+    sc.replacements {
+        string(scp >= "26.2") {
+            replace("EntityType", "EntityTypes")
+        }
+        string(scp >= "1.21.6") {
+            replace("eventbus.api.SubscribeEvent", "eventbus.api.listener.SubscribeEvent")
+        }
+    }
+
     setMREnvironment(mrEnvs.serverOnly)
     setCFEnvironment(cfEnvs.server)
 
-    versionRange(version = "26.3", to = "latest")
+    versionRange(version = "26.2", to = "latest")
+    versionRange(version = "1.21.8", to = "1.21.11", loader = "forge")
+    versionRange(version = "1.21.3", to = "1.21.5", loader = "forge")
+    versionRange(version = "1.21.3", to = "1.21.11")
+    versionRange(version = "1.20.6", to = "1.21.2")
+    versionRange(version = "1.20.1", to = "1.20.4", loader = "forge")
+    versionRange(version = "1.20.1", to = "1.21.2")
 
     addDependency(
         dependency = getSimpleConfigLibDep(),

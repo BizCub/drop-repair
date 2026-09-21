@@ -3,7 +3,6 @@ package io.github.bizcub.dropRepair;
 import io.github.bizcub.dropRepair.config.Config;
 import io.github.bizcub.dropRepair.config.ConfigHelperCommon;
 import io.github.bizcub.dropRepair.config.SimpleConfig;
-import io.github.bizcub.simpleConfigLib.autoconfig.ConfigHolder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -61,6 +60,7 @@ public class DropRepair {
     private static boolean isRepairableBy(ItemStack tool, ItemStack material) {
         return tool.isDamageableItem()
                 && tool.isDamaged()
+                //~ if >=1.21.2 'getItem().isValidRepairItem(tool, material)' -> 'isValidRepairItem(material)'
                 && tool.isValidRepairItem(material);
     }
 
