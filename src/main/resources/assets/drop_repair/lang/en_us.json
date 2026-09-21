@@ -1,0 +1,10 @@
+{
+    "text.drop_repair.title": "Drop Repair Settings",
+    "text.drop_repair.group.general": "Drop Repair Settings",
+    "text.drop_repair.option.repair_fraction": "Repair Fraction",
+    "text.drop_repair.option.repair_fraction.tooltip": "Fraction of max durability restored per material item",
+    "text.drop_repair.option.radius": "Radius",
+    "text.drop_repair.option.radius.tooltip": "Search radius (in blocks) around a dropped item for repairable items",
+    "text.drop_repair.option.check_interval": "Check Interval",
+    "text.drop_repair.option.check_interval.tooltip": "How often (in ticks) dropped items are checked for repairing"
+}

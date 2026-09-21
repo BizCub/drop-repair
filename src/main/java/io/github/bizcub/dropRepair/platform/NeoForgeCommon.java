@@ -10,7 +10,11 @@ import net.neoforged.neoforge.event.tick.LevelTickEvent;
   
 @Mod(DropRepair.MOD_ID)
 @EventBusSubscriber(modid = DropRepair.MOD_ID)
-public class NeoForge {
+public class NeoForgeCommon {
+
+    public NeoForgeCommon() {
+        DropRepair.init();
+    }
   
     @SubscribeEvent  
     public static void onLevelTick(LevelTickEvent.Post event) {

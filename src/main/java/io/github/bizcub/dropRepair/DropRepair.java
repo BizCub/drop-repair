@@ -1,5 +1,9 @@
 package io.github.bizcub.dropRepair;
 
+import io.github.bizcub.dropRepair.config.Config;
+import io.github.bizcub.dropRepair.config.ConfigHelperCommon;
+import io.github.bizcub.dropRepair.config.SimpleConfig;
+import io.github.bizcub.simpleConfigLib.autoconfig.ConfigHolder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -11,15 +15,17 @@ import java.util.List;
 public class DropRepair {
     public static final String MOD_ID = /*$ mod_id*/ "drop_repair";
 
-    private static final double RADIUS = 1.5;
-    public static final int CHECK_INTERVAL = 10;
-    private static final float REPAIR_FRACTION = 0.125F;
+    public static void init() {
+        if (ConfigHelperCommon.isConfigLoaded()) {
+            Config.set(SimpleConfig.getInstance().get());
+        }
+    }
 
     public static void tick(final ServerLevel level) {
-        if (level.getGameTime() % CHECK_INTERVAL != 0) {
+        if (level.getGameTime() % Config.get().checkInterval() != 0) {
             return;
         }
-        for (ItemEntity entity : level.getEntities(EntityTypes.ITEM,e -> true)) {
+        for (ItemEntity entity : level.getEntities(EntityTypes.ITEM, e -> true)) {
             tryRepairNeighbours(level, entity);
         }
     }
@@ -30,7 +36,8 @@ public class DropRepair {
             return;
         }
 
-        AABB box = materialEntity.getBoundingBox().inflate(RADIUS, 0.5, RADIUS);
+        double radius = Config.get().radius();
+        AABB box = materialEntity.getBoundingBox().inflate(radius, 0.5, radius);
         List<ItemEntity> targets = level.getEntitiesOfClass(
                 ItemEntity.class, box,
                 other -> other != materialEntity
@@ -42,7 +49,7 @@ public class DropRepair {
             return;
         }
 
-        float fractionPerItem = (material.getCount() * REPAIR_FRACTION) / targets.size();
+        float fractionPerItem = (material.getCount() * Config.get().repairFraction()) / targets.size();
 
         for (ItemEntity target : targets) {
             repairStack(target.getItem(), fractionPerItem);
