@@ -16,11 +16,12 @@ multiloader {
     setCFEnvironment(cfEnvs.server)
 
     versionRange(version = "26.2", to = "latest")
-    versionRange(version = "1.21.8", to = "1.21.11", loader = "forge")
+    versionRange(version = "1.21.10", to = "1.21.11", loader = "forge")
     versionRange(version = "1.21.3", to = "1.21.5", loader = "forge")
     versionRange(version = "1.21.3", to = "1.21.11")
-    versionRange(version = "1.20.6", to = "1.21.2")
-    versionRange(version = "1.20.1", to = "1.20.4", loader = "forge")
+    versionRange(version = "1.21.1", from = "1.20.6", loader = "forge")
+    versionRange(version = "1.20.2", to = "1.20.4", loader = "forge")
+    versionRange(version = "1.20.1", to = "1.20.1", loader = "forge")
     versionRange(version = "1.20.1", to = "1.21.2")
 
     addDependency(

@@ -21,9 +21,9 @@ public class ForgeCommon {
         }
     }
 
-    @SubscribeEvent //~ if >=1.20.2 'LevelTickEvent' -> 'LevelTickEvent.Post'
+    @SubscribeEvent //~ if >=1.20.3 'LevelTickEvent' -> 'LevelTickEvent.Post'
     public static void onLevelTick(TickEvent.LevelTickEvent.Post event) {
-        //~ if >=26.1.2 '.level' -> '.level()'
+        //~ if >=1.21.10 '.level' -> '.level()'
         if (event.level() instanceof ServerLevel serverLevel) {
             DropRepair.tick(serverLevel);
         }
