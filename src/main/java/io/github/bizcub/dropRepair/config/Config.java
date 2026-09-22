@@ -1,5 +1,8 @@
 package io.github.bizcub.dropRepair.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface Config {
     static Config get() {
         return Holder.INSTANCE;
@@ -25,5 +28,9 @@ public interface Config {
 
     default int checkInterval() {
         return 10;
+    }
+
+    default List<RepairEntry> repairMaterials() {
+        return new ArrayList<>();
     }
 }

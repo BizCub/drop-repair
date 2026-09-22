@@ -2,7 +2,10 @@ package io.github.bizcub.dropRepair;
 
 import io.github.bizcub.dropRepair.config.Config;
 import io.github.bizcub.dropRepair.config.ConfigHelperCommon;
+import io.github.bizcub.dropRepair.config.RepairEntry;
 import io.github.bizcub.dropRepair.config.SimpleConfig;
+import io.github.bizcub.simpleConfigLib.util.Id;
+import io.github.bizcub.simpleConfigLib.util.ItemUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -61,7 +64,19 @@ public class DropRepair {
         return tool.isDamageableItem()
                 && tool.isDamaged()
                 //~ if >=1.21.2 'getItem().isValidRepairItem(tool, material)' -> 'isValidRepairItem(material)'
-                && tool.isValidRepairItem(material);
+                && (tool.isValidRepairItem(material) || matchesRepairEntry(tool, material));
+    }
+
+    private static boolean matchesRepairEntry(ItemStack tool, ItemStack material) {
+        for (RepairEntry entry : Config.get().repairMaterials()) {
+            if (ItemUtil.idOf(tool).equals(Id.parse(entry.item))
+                    && entry.materials.stream()
+                    .map(Id::parse)
+                    .anyMatch(id -> id.equals(ItemUtil.idOf(material)))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static void repairStack(ItemStack tool, float fraction) {

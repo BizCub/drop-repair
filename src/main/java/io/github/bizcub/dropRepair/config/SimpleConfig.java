@@ -4,6 +4,8 @@ import io.github.bizcub.dropRepair.DropRepair;
 import io.github.bizcub.simpleConfigLib.autoconfig.ConfigHolder;
 import io.github.bizcub.simpleConfigLib.autoconfig.annotation.*;
 
+import java.util.List;
+
 @AutoConfig(name = DropRepair.MOD_ID, snakeCaseKeys = true, translate = true)
 public class SimpleConfig implements Config {
 
@@ -21,6 +23,10 @@ public class SimpleConfig implements Config {
     @Slider(min = 1, max = 100)
     public int checkInterval = Config.super.checkInterval();
 
+    @Tooltip
+    @ListConfig(translateElements = true)
+    public List<RepairEntry> repairMaterials = Config.super.repairMaterials();
+
     @Override
     public float repairFraction() {
         return this.repairFraction;
@@ -34,5 +40,10 @@ public class SimpleConfig implements Config {
     @Override
     public int checkInterval() {
         return this.checkInterval;
+    }
+
+    @Override
+    public List<RepairEntry> repairMaterials() {
+        return this.repairMaterials;
     }
 }

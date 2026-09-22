@@ -6,5 +6,12 @@
     "text.drop_repair.option.radius": "Radius",
     "text.drop_repair.option.radius.tooltip": "Search radius (in blocks) around a dropped item for repairable items",
     "text.drop_repair.option.check_interval": "Check Interval",
-    "text.drop_repair.option.check_interval.tooltip": "How often (in ticks) dropped items are checked for repairing"
+    "text.drop_repair.option.check_interval.tooltip": "How often (in ticks) dropped items are checked for repairing",
+    "text.drop_repair.option.repair_materials": "Repair Materials",
+    "text.drop_repair.option.repair_materials.tooltip": "Custom repair rules: which items can repair a given item",
+    "text.drop_repair.option.repair_materials.element": "Repair Entry",
+    "text.drop_repair.option.repair_materials.item": "Item",
+    "text.drop_repair.option.repair_materials.item.tooltip": "ID of the item to repair (e.g. minecraft:diamond_sword)",
+    "text.drop_repair.option.repair_materials.materials": "Materials",
+    "text.drop_repair.option.repair_materials.materials.tooltip": "Item IDs that can be used as repair material"
 }
