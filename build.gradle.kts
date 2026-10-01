@@ -22,7 +22,7 @@ multiloader {
     versionRange(version = "1.21.1", from = "1.20.6", loader = "forge")
     versionRange(version = "1.20.2", to = "1.20.4", loader = "forge")
     versionRange(version = "1.20.1", to = "1.20.1", loader = "forge")
-    versionRange(version = "1.20.1", to = "1.21.2")
+    versionRange(version = "1.20.1", to = "1.21.1")
 
     addDependency(
         dependency = getSimpleConfigLibDep(),
