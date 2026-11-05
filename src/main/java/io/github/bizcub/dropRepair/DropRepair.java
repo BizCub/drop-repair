@@ -6,6 +6,7 @@ import io.github.bizcub.dropRepair.config.RepairEntry;
 import io.github.bizcub.dropRepair.config.SimpleConfig;
 import io.github.bizcub.simpleConfigLib.util.Id;
 import io.github.bizcub.simpleConfigLib.util.ItemUtil;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -55,6 +56,9 @@ public class DropRepair {
 
         for (ItemEntity target : targets) {
             repairStack(target.getItem(), fractionPerItem);
+            level.sendParticles(ParticleTypes.GLOW,
+                    target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),
+                    9, 0.03, 0.03, 0.03, 0.08);
         }
 
         materialEntity.discard();
