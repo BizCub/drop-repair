@@ -30,4 +30,14 @@ public class SimpleConfig {
     @Tooltip
     @ListConfig(translateElements = true)
     public List<RepairEntry> repairMaterials = new ArrayList<>();
+
+    public static class RepairEntry {
+
+        @Tooltip
+        public String item = "";
+
+        @Tooltip
+        @ListConfig(expanded = true)
+        public List<String> materials = new ArrayList<>(List.of(""));
+    }
 }

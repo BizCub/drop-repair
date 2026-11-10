@@ -1,7 +1,7 @@
 package io.github.bizcub.dropRepair;
 
-import io.github.bizcub.dropRepair.config.RepairEntry;
 import io.github.bizcub.dropRepair.config.SimpleConfig;
+import io.github.bizcub.dropRepair.config.SimpleConfig.RepairEntry;
 import io.github.bizcub.simpleConfigLib.util.Id;
 import io.github.bizcub.simpleConfigLib.util.ItemUtil;
 import net.minecraft.core.particles.ParticleTypes;
