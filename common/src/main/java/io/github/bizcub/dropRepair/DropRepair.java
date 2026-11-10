@@ -1,7 +1,5 @@
 package io.github.bizcub.dropRepair;
 
-import io.github.bizcub.dropRepair.config.Config;
-import io.github.bizcub.dropRepair.config.ConfigHelperCommon;
 import io.github.bizcub.dropRepair.config.RepairEntry;
 import io.github.bizcub.dropRepair.config.SimpleConfig;
 import io.github.bizcub.simpleConfigLib.util.Id;
@@ -16,16 +14,16 @@ import net.minecraft.world.phys.AABB;
 import java.util.List;
 
 public class DropRepair {
-    public static final String MOD_ID = /*$ mod_id*/ "drop_repair";
+    public static final String MOD_ID = "drop_repair";
+
+    private static SimpleConfig config;
 
     public static void init() {
-        if (ConfigHelperCommon.isConfigLoaded()) {
-            Config.set(SimpleConfig.getInstance().get());
-        }
+        config = SimpleConfig.getInstance().get();
     }
 
     public static void tick(final ServerLevel level) {
-        if (level.getGameTime() % Config.get().checkInterval() != 0) {
+        if (level.getGameTime() % config.checkInterval != 0) {
             return;
         }
         for (ItemEntity entity : level.getEntities(EntityTypes.ITEM, e -> true)) {
@@ -39,7 +37,7 @@ public class DropRepair {
             return;
         }
 
-        double radius = Config.get().radius();
+        double radius = config.radius;
         AABB box = materialEntity.getBoundingBox().inflate(radius, 0.5, radius);
         List<ItemEntity> targets = level.getEntitiesOfClass(
                 ItemEntity.class, box,
@@ -52,7 +50,7 @@ public class DropRepair {
             return;
         }
 
-        float fractionPerItem = (material.getCount() * Config.get().repairFraction()) / targets.size();
+        float fractionPerItem = (material.getCount() * config.repairFraction) / targets.size();
 
         for (ItemEntity target : targets) {
             repairStack(target.getItem(), fractionPerItem);
@@ -67,12 +65,11 @@ public class DropRepair {
     private static boolean isRepairableBy(ItemStack tool, ItemStack material) {
         return tool.isDamageableItem()
                 && tool.isDamaged()
-                //~ if >=1.21.2 'getItem().isValidRepairItem(tool, material)' -> 'isValidRepairItem(material)'
                 && (tool.isValidRepairItem(material) || matchesRepairEntry(tool, material));
     }
 
     private static boolean matchesRepairEntry(ItemStack tool, ItemStack material) {
-        for (RepairEntry entry : Config.get().repairMaterials()) {
+        for (RepairEntry entry : config.repairMaterials) {
             if (ItemUtil.idOf(tool).equals(Id.parse(entry.item))
                     && entry.materials.stream()
                     .map(Id::parse)

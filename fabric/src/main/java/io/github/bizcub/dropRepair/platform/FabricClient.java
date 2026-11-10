@@ -1,4 +1,3 @@
-//? fabric {
 package io.github.bizcub.dropRepair.platform;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
@@ -14,4 +13,4 @@ public class FabricClient {
             return ConfigHelperClient::getScreen;
         }
     }
-}//?}
+}

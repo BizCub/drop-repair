@@ -1,4 +1,3 @@
-//? fabric {
 package io.github.bizcub.dropRepair.platform;
 
 import io.github.bizcub.dropRepair.DropRepair;
@@ -13,4 +12,4 @@ public class FabricCommon implements ModInitializer {
 
         ServerTickEvents.END_SERVER_TICK.register(server -> server.getAllLevels().forEach(DropRepair::tick));
     }
-}//?}
+}
