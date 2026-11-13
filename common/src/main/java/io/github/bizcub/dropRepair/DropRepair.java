@@ -11,6 +11,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DropRepair {
@@ -32,7 +33,7 @@ public class DropRepair {
     }
 
     public static void tryRepairNeighbours(ServerLevel level, ItemEntity materialEntity) {
-        ItemStack material = materialEntity.getItem();
+        ItemStack material = materialEntity.getItem().copy();
         if (material.isEmpty() || !materialEntity.isAlive()) {
             return;
         }
@@ -50,16 +51,29 @@ public class DropRepair {
             return;
         }
 
-        float fractionPerItem = (material.getCount() * config.repairFraction) / targets.size();
+        List<ItemEntity> damagedTargets = new ArrayList<>(targets);
+        while (!material.isEmpty() && !damagedTargets.isEmpty()) {
+            float fractionPerItem = config.repairFraction / damagedTargets.size();
+            for (ItemEntity target : damagedTargets) {
+                ItemStack tool = target.getItem().copy();
+                repairStack(tool, fractionPerItem);
+                target.setItem(tool);
+            }
+            material.shrink(1);
+            damagedTargets.removeIf(target -> !target.getItem().isDamaged());
+        }
 
         for (ItemEntity target : targets) {
-            repairStack(target.getItem(), fractionPerItem);
             level.sendParticles(ParticleTypes.GLOW,
                     target.getX(), target.getY() + target.getBbHeight() / 2, target.getZ(),
                     9, 0.03, 0.03, 0.03, 0.08);
         }
 
-        materialEntity.discard();
+        if (material.isEmpty()) {
+            materialEntity.discard();
+        } else {
+            materialEntity.setItem(material);
+        }
     }
 
     private static boolean isRepairableBy(ItemStack tool, ItemStack material) {
