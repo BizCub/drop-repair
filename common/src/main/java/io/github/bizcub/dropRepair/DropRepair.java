@@ -2,8 +2,8 @@ package io.github.bizcub.dropRepair;
 
 import io.github.bizcub.dropRepair.config.SimpleConfig;
 import io.github.bizcub.dropRepair.config.SimpleConfig.RepairEntry;
-import io.github.bizcub.simpleConfigLib.util.Id;
-import io.github.bizcub.simpleConfigLib.util.ItemUtil;
+import net.minecraft.resources.Identifier;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityTypes;
@@ -84,10 +84,10 @@ public class DropRepair {
 
     private static boolean matchesRepairEntry(ItemStack tool, ItemStack material) {
         for (RepairEntry entry : config.repairMaterials) {
-            if (ItemUtil.idOf(tool).equals(Id.parse(entry.item))
+            if (BuiltInRegistries.ITEM.getKey(tool.getItem()).equals(Identifier.parse(entry.item))
                     && entry.materials.stream()
-                    .map(Id::parse)
-                    .anyMatch(id -> id.equals(ItemUtil.idOf(material)))) {
+                    .map(Identifier::parse)
+                    .anyMatch(id -> id.equals(BuiltInRegistries.ITEM.getKey(material.getItem())))) {
                 return true;
             }
         }
